@@ -33,12 +33,29 @@ let resetButton = document.getElementById("reset-button");
 let chances = 5;
 let gameOver = false;
 let chancesArea = document.getElementById("chance-area");
+let history = [];
 
 playButton.addEventListener("click", play);
 resetButton.addEventListener("click", reset);
+// 10. 유저가 숫자를 입력하기 전에, input 창이 깨끗하게 정리된다.
+userInput.addEventListener("focus", function () {
+  userInput.value = "";
+});
 
 function play() {
   let userValue = userInput.value;
+
+  // 8. 유저가 1~100 범위 밖에 숫자를 입력하면 알려준다. 기회를 깍지 않는다.
+  if (userValue < 1 || userValue > 100) {
+    resultArea.textContent = "1과 100 사이의 숫자를 입력해 주세요.";
+    return;
+  }
+  // 9. 유저가 이미 입력한 숫자를 또 입력하면, 알려준다, 기회를 깍지 않는다.
+  if (history.includes(userValue)) {
+    resultArea.textContent =
+      "이미 입력한 숫자입니다. 다른 숫자를 입력해주세요.";
+    return;
+  }
 
   chances--;
   chancesArea.textContent = `남은 기회: ${chances} 번`;
@@ -50,7 +67,12 @@ function play() {
     resultArea.textContent = "Down!!";
   } else {
     resultArea.textContent = "맞췄습니다!!";
+    // 11. 게임을 기회가 끝나기 전에 맞춰도 Go 버튼은 비활성화 된다
+    gameOver = true;
   }
+  history.push(userValue);
+  console.log(history);
+
   if (chances < 1) {
     gameOver = true;
   }
