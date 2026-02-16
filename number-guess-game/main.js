@@ -86,6 +86,11 @@ function reset() {
   userInput.value = "";
   // 새로운 번호가 생성
   pickRandomNum();
+  // 12. Go버튼 활성화, 기회 초기화, 결과창 초기화, history 초기화
+  playButton.disabled = false;
+  chances = 5;
+  chancesArea.textContent = `남은 기회: ${chances} 번`;
+  history = [];
 
   resultArea.textContent = "결과값이 여기에 나옵니다.";
 }
