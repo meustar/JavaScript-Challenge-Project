@@ -1,0 +1,163 @@
+/*  숫자 맞추기 게임 - style.css */
+
+/*  init  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*  바디  */
+body {
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background-color: #f0f4f8;
+  color: #1a202c;
+  min-height: 100vh;
+}
+
+/*  레이아웃  */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/*  카드  */
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/*  제목  */
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 24px;
+}
+
+/* 결과창 */
+.result {
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #718096;
+  margin-bottom: 16px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 남은 기회  */
+.chance {
+  font-size: 14px;
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+/*  입력창  */
+#user-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  color: #1a202c;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+
+  /* 숫자 입력 화살표 제거 */
+  -moz-appearance: textfield;
+}
+#user-input::-webkit-outer-spin-button,
+#user-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#user-input::placeholder {
+  color: #cbd5e0;
+  font-weight: 400;
+}
+#user-input:focus {
+  border-color: #3182ce;
+}
+
+/*  버튼 영역  */
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/*  버튼 공통  */
+.btn {
+  flex: 1;
+  padding: 14px 0;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+/*  Go 버튼  */
+.btn-go {
+  background-color: #3182ce;
+  color: #ffffff;
+}
+.btn-go:hover {
+  opacity: 0.9;
+}
+
+/*  Reset 버튼  */
+.btn-reset {
+  background-color: #ffffff;
+  color: #1a202c;
+  border: 2px solid #e2e8f0;
+}
+.btn-reset:hover {
+  background-color: #f7fafc;
+}
+
+/* 반응형 - 작은 화면 (480px 이하) */
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  #user-input {
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+
+  .btn {
+    padding: 12px 0;
+    font-size: 14px;
+  }
+}
