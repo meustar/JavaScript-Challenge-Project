@@ -24,16 +24,26 @@ pickRandomNum();
 // 3. 만약에 유저가 랜덤번호를 맞추면, 맞췄습니다!
 // 4. 랜덤번호가 < 유저번호 Down!!!
 // 5. 랜덤번호가 > 유저번호 Up!!
+// 6. Reset 버튼을 누르면 게임이 리셋된다.
+// 7. 5번의 기회를 다쓰면 게임이 끝난다. (더이상 추측 불가, 버튼이 disable)
 let playButton = document.getElementById("play-button");
 let userInput = document.getElementById("user-input");
 let resultArea = document.getElementById("result-area");
+let resetButton = document.getElementById("reset-button");
+let chances = 5;
+let gameOver = false;
+let chancesArea = document.getElementById("chance-area");
 
 playButton.addEventListener("click", play);
+resetButton.addEventListener("click", reset);
 
 function play() {
-  //   console.log("게임 시작");
   let userValue = userInput.value;
-  console.log(userValue);
+
+  chances--;
+  chancesArea.textContent = `남은 기회: ${chances} 번`;
+  console.log("남은 기회: ", chances);
+
   if (userValue < computerNum) {
     resultArea.textContent = "Up!!";
   } else if (userValue > computerNum) {
@@ -41,4 +51,19 @@ function play() {
   } else {
     resultArea.textContent = "맞췄습니다!!";
   }
+  if (chances < 1) {
+    gameOver = true;
+  }
+  if (gameOver == true) {
+    playButton.disabled = true;
+  }
+}
+
+function reset() {
+  // user input 창이 깨끗하게 정리되고,
+  userInput.value = "";
+  // 새로운 번호가 생성
+  pickRandomNum();
+
+  resultArea.textContent = "결과값이 여기에 나옵니다.";
 }
