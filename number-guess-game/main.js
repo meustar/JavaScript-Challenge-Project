@@ -21,6 +21,9 @@ function pickRandomNum() {
 pickRandomNum();
 
 // 2. 유저가 번호를 입력한다. 그리고 go라는 버튼을 누른다.
+// 3. 만약에 유저가 랜덤번호를 맞추면, 맞췄습니다!
+// 4. 랜덤번호가 < 유저번호 Down!!!
+// 5. 랜덤번호가 > 유저번호 Up!!
 let playButton = document.getElementById("play-button");
 let userInput = document.getElementById("user-input");
 let resultArea = document.getElementById("result-area");
