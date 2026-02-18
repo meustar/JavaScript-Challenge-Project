@@ -39,7 +39,7 @@ function render() {
             <div class="task-done">${taskList[i].taskContent}</div>
             <div>
               <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
-              <button onclick="deleteTask()"><i class="fa-regular fa-trash-can"></i></button>
+              <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
     } else {
@@ -47,7 +47,7 @@ function render() {
             <div>${taskList[i].taskContent}</div>
             <div>
               <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-circle-check"></i></button>
-              <button  onclick="deleteTask()"><i class="fa-regular fa-trash-can"></i></button>
+              <button  onclick="deleteTask('${taskList[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
     }
@@ -71,11 +71,20 @@ function toggleComplete(id) {
   console.log(taskList);
 }
 
+// 삭제 기능
+function deleteTask(id) {
+  // console.log("delete", id);
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].id == id) {
+      taskList.splice(i, 1);
+      break;
+    }
+  }
+  console.log(taskList);
+  render();
+}
+
 // 랜덤 아이디 생성 함수
 function randomIDGenerate() {
   return "_" + Math.random().toString(36).substr(2, 9);
-}
-
-function deleteTask() {
-  console.log("delete");
 }
