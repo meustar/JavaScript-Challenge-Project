@@ -61,8 +61,18 @@ function render() {
   let list = [];
   if (mode === "all") {
     list = taskList;
-  } else if (mode === "ongoing" || mode === "done") {
-    list = filterList;
+  } else if (mode === "ongoing") {
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === false) {
+        list.push(taskList[i]);
+      }
+    }
+  } else if (mode === "done") {
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === true) {
+        list.push(taskList[i]);
+      }
+    }
   }
 
   let resultHTML = "";
