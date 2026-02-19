@@ -190,3 +190,31 @@ main.container {
   font-weight: 700;
   color: #0d6efd;
 }
+
+/* 달력 날짜 칸 기준점 */
+.fc .fc-daygrid-day-frame {
+  position: relative;
+}
+
+/* 날짜 칸 오른쪽 위 배지 */
+.todo-badge {
+  position: absolute;
+  top: auto;
+  right: 6px;
+  bottom: 6px;
+
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+
+  border-radius: 999px;
+  background: #0d6efd; /* Bootstrap primary 느낌 */
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+
+  pointer-events: none; /* 클릭 방해 금지 */
+}

@@ -33,6 +33,47 @@ function updateSelectedDateUI() {
   if (el) el.textContent = selectedDate;
 }
 
+// 달력안에 할일 갯수 보여주기
+function getCountByDate(dateStr) {
+  let count = 0;
+
+  for (let i = 0; i < taskList.length; i++) {
+    let taskDate = taskList[i].date ? taskList[i].date : getTodayStr();
+
+    if (taskDate === dateStr) {
+      count++;
+    }
+  }
+  return count;
+}
+function updateCalendarBadges() {
+  let dayEls = document.querySelectorAll(".fc-daygrid-day[data-date]");
+  if (!dayEls || dayEls.length === 0) return;
+
+  for (let i = 0; i < dayEls.length; i++) {
+    let dateStr = dayEls[i].getAttribute("data-date");
+    let count = getCountByDate(dateStr);
+
+    let frame = dayEls[i].querySelector(".fc-daygrid-day-frame");
+    if (!frame) frame = dayEls[i];
+
+    let badge = frame.querySelector(".todo-badge");
+
+    if (count > 0) {
+      if (!badge) {
+        badge = document.createElement("div");
+        badge.className = "todo-badge";
+        frame.appendChild(badge);
+      }
+      badge.textContent = count;
+    } else {
+      if (badge) {
+        badge.remove();
+      }
+    }
+  }
+}
+
 // 모바일 환경에서 달력의 날짜를 누르면 할일 리스트로 자동 스크롤
 function scrollToTodoIfMobile() {
   // 992px 보다 작으면 모바일로 간주.
@@ -131,6 +172,8 @@ function render() {
   }
 
   document.getElementById("task-board").innerHTML = resultHTML;
+
+  updateCalendarBadges();
 }
 
 // 체크버튼을 클릭하면 할일이 끝난것으로 간주하고 밑줄이 그어진다.
@@ -238,6 +281,10 @@ document.addEventListener("DOMContentLoaded", function () {
       right: "dayGridMonth,timeGridWeek",
     },
 
+    datesSet: function () {
+      updateCalendarBadges();
+    },
+
     dateClick: function (info) {
       selectedDate = info.dateStr;
       updateSelectedDateUI();
@@ -250,4 +297,5 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
   calender.render();
+  updateCalendarBadges();
 });
