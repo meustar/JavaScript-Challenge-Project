@@ -150,24 +150,49 @@ function render() {
     }
   }
 
-  let resultHTML = "";
+  // 날짜별 그룹 만들기
+  let group = {};
   for (let i = 0; i < list.length; i++) {
-    if (list[i].isComplete == true) {
-      resultHTML += `<div class="task">
+    let dateStr = list[i].date ? list[i].date : getTodayStr();
+
+    if (!group[dateStr]) {
+      group[dateStr] = [];
+    }
+    group[dateStr].push(list[i]);
+  }
+
+  // 날짜 목록 만들고 정렬
+  let dates = Object.keys(group);
+  dates.sort(); // 오름차순 정렬
+
+  let resultHTML = "";
+
+  for (let d = 0; d < dates.length; d++) {
+    let dateStr = dates[d];
+
+    resultHTML += `<div class="date-group">
+      <div class="date-title">${dateStr}</div>
+    </div>`;
+
+    let list = group[dateStr];
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].isComplete == true) {
+        resultHTML += `<div class="task">
             <div class="task-done">${list[i].taskContent}</div>
             <div>
               <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
               <button onclick="deleteTask('${list[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
-    } else {
-      resultHTML += `<div class="task">
+      } else {
+        resultHTML += `<div class="task">
             <div>${list[i].taskContent}</div>
             <div>
               <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-circle-check"></i></button>
               <button  onclick="deleteTask('${list[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
+      }
     }
   }
 
