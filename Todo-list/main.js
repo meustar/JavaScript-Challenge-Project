@@ -33,6 +33,24 @@ function updateSelectedDateUI() {
   if (el) el.textContent = selectedDate;
 }
 
+// 모바일 환경에서 달력의 날짜를 누르면 할일 리스트로 자동 스크롤
+function scrollToTodoIfMobile() {
+  // 992px 보다 작으면 모바일로 간주.
+  let isMobile = window.matchMedia("(max-width: 991.98px)").matches;
+  if (!isMobile) return;
+
+  let todoSection = document.getElementById("todo-section");
+  if (!todoSection) return;
+
+  todoSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+
+  let input = document.getElementById("task-input");
+  if (input) input.focus();
+}
+
 // 할일 추가 버튼
 addButton.addEventListener("click", addTask);
 taskInput.addEventListener("keydown", function (e) {
@@ -224,6 +242,11 @@ document.addEventListener("DOMContentLoaded", function () {
       selectedDate = info.dateStr;
       updateSelectedDateUI();
       render();
+
+      // 살짝 기다렸다가 스크롤
+      setTimeout(function () {
+        scrollToTodoIfMobile();
+      }, 50);
     },
   });
   calender.render();
