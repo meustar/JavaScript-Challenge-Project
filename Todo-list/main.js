@@ -33,12 +33,19 @@ console.log(tabs);
 function addTask() {
   //   console.log("clicked");
   // let taskContent = taskInput.value;
+
+  // 입력창이 비어있으면 추가 안되도록.
+  if (taskInput.value.trim() === "") {
+    return;
+  }
   let task = {
     id: randomIDGenerate(),
     taskContent: taskInput.value,
     isComplete: false,
   };
   taskList.push(task);
+  // 입력창 초기화
+  taskInput.value = "";
   console.log(taskList);
   render();
 }
