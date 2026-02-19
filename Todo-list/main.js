@@ -20,6 +20,11 @@ let filterList = [];
 
 // 할일 추가 버튼
 addButton.addEventListener("click", addTask);
+taskInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
 
 for (let i = 1; i < tabs.length; i++) {
   tabs[i].addEventListener("click", function (event) {
