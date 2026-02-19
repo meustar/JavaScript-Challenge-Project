@@ -14,9 +14,19 @@ let taskInput = document.getElementById("task-input");
 // console.log(taskInput);
 let addButton = document.getElementById("add-button");
 let taskList = [];
+let tabs = document.querySelectorAll(".task-tabs div");
+let mode = "all";
+let filterList = [];
 
 addButton.addEventListener("click", addTask);
 
+for (let i = 1; i < tabs.length; i++) {
+  tabs[i].addEventListener("click", function (event) {
+    filter(event);
+  });
+}
+
+console.log(tabs);
 // 할일 추가
 function addTask() {
   //   console.log("clicked");
@@ -32,22 +42,31 @@ function addTask() {
 }
 
 function render() {
+  // 1. 내가 선택한 탭에 따라서 (mode = 내가 선택한 탭의 정보를 가진 변수)
+  // 2. 리스트를 달리 보여준다.
+  let list = [];
+  if (mode === "all") {
+    list = taskList;
+  } else if (mode === "ongoing" || mode === "done") {
+    list = filterList;
+  }
+
   let resultHTML = "";
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete == true) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].isComplete == true) {
       resultHTML += `<div class="task">
-            <div class="task-done">${taskList[i].taskContent}</div>
+            <div class="task-done">${list[i].taskContent}</div>
             <div>
-              <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
-              <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
+              <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-rotate-left"></i></button>
+              <button onclick="deleteTask('${list[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
     } else {
       resultHTML += `<div class="task">
-            <div>${taskList[i].taskContent}</div>
+            <div>${list[i].taskContent}</div>
             <div>
-              <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-circle-check"></i></button>
-              <button  onclick="deleteTask('${taskList[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
+              <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-circle-check"></i></button>
+              <button  onclick="deleteTask('${list[i].id}')"><i class="fa-regular fa-trash-can"></i></button>
             </div>
           </div>`;
     }
@@ -82,6 +101,37 @@ function deleteTask(id) {
   }
   console.log(taskList);
   render();
+}
+
+function filter(event) {
+  console.log("filter", event.target.id);
+  mode = event.target.id;
+  filterList = [];
+
+  if (mode === "all") {
+    // 전체 리스트
+    render();
+  } else if (mode === "ongoing") {
+    // 진행중인 리스트
+    //  task.isComplete == false 인 값들.
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === false) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+    console.log("진행중", filterList);
+  } else if (mode === "done") {
+    // 끝난 리스트
+    // task.isComplete == true 인 값들.
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete === true) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+    console.log("완료", filterList);
+  }
 }
 
 // 랜덤 아이디 생성 함수
