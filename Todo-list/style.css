@@ -1,8 +1,45 @@
 body {
   margin: 0;
+  min-height: 100vh;
   background-image: url("images/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* 오버레이 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+/* container 내용이 오버레이 위로 오게 */
+main.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* 캘린더 자리(나중에 실제 캘린더로 교체) */
+.calendar-placeholder {
+  min-height: 520px;
+  border: 1px dashed #ced4da;
+  border-radius: 12px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* Todo list 영역 스크롤(모바일에서 너무 길어지지 않게) */
+.task-board {
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 4px;
 }
 
 .app-box {
@@ -21,33 +58,82 @@ body {
 
 .task-tabs {
   display: flex;
+  gap: 6px;
   border-bottom: 1px solid lightgray;
   position: relative;
+  flex-wrap: wrap; /* 모바일에서 줄바꿈 허용 */
 }
+
 .task-tabs div {
   padding: 1em;
 }
 
 #under-line {
-  height: 4px;
+  height: 3px;
   background-color: skyblue;
   position: absolute;
-  width: 50px;
+  width: 40px;
   left: 0px;
-  top: 52px;
+  top: 38px;
   padding: 0px;
   transition: 0.5s;
+  border-radius: 999px;
+}
+/* 탭 버튼처럼 보이게 */
+.tab-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 999px;
+  color: #495057;
+  user-select: none;
 }
 
+.tab-item:hover {
+  background: #f1f3f5;
+}
+
+.tab-item.active {
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+/* 할 일 1줄: JS 수정 없이 보기 좋게 */
 .task {
   display: flex;
   justify-content: space-between;
-  padding: 1em;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  background: #ffffff;
+  margin-bottom: 10px;
 }
+/* 완료 텍스트 */
 .task-done {
   text-decoration: line-through;
+  color: #868e96;
+}
+/* task 안의 버튼 기본 스타일(아이콘 버튼 깔끔하게) */
+.task button {
+  border: 1px solid #dee2e6;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
 }
 
-.task-tabs div {
-  cursor: pointer;
+.task button:hover {
+  background: #f8f9fa;
+}
+
+/* 작은 화면에서 캘린더 높이 조금 줄이기 */
+@media (max-width: 991.98px) {
+  .calendar-placeholder {
+    min-height: 420px;
+  }
+
+  .task-board {
+    max-height: 360px;
+  }
 }

@@ -61,13 +61,13 @@ function render() {
   let list = [];
   if (mode === "all") {
     list = taskList;
-  } else if (mode === "ongoing") {
+  } else if (mode === "Action") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete === false) {
         list.push(taskList[i]);
       }
     }
-  } else if (mode === "done") {
+  } else if (mode === "Complete") {
     for (let i = 0; i < taskList.length; i++) {
       if (taskList[i].isComplete === true) {
         list.push(taskList[i]);
@@ -135,7 +135,7 @@ function filter(event) {
   if (mode === "all") {
     // 전체 리스트
     render();
-  } else if (mode === "ongoing") {
+  } else if (mode === "Action") {
     // 진행중인 리스트
     //  task.isComplete == false 인 값들.
     for (let i = 0; i < taskList.length; i++) {
@@ -145,7 +145,7 @@ function filter(event) {
     }
     render();
     console.log("진행중", filterList);
-  } else if (mode === "done") {
+  } else if (mode === "Complete") {
     // 끝난 리스트
     // task.isComplete == true 인 값들.
     for (let i = 0; i < taskList.length; i++) {

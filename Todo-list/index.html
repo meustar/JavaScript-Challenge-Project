@@ -42,33 +42,44 @@
             </div>
           </div>
         </section>
+        <!-- Todo_List -->
+        <section class="col-12 col-lg-5">
+          <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-white fw-bold">
+              <i class="fa-solid fa-list-check me-2"></i>Todo List
+            </div>
+
+            <div class="card-body">
+              <!-- 입력 영역 -->
+              <div class="app-box">
+                <section class="input-area">
+                  <input
+                    type="text"
+                    id="task-input"
+                    class="form-control"
+                    placeholder="할 일을 입력하세요"
+                    autocomplete="off"
+                  />
+                  <button id="add-button" class="btn btn-primary" type="button">
+                    추가
+                  </button>
+                </section>
+
+                <section class="task-area">
+                  <div class="task-tabs mb-3">
+                    <div id="under-line"></div>
+                    <div id="all" class="tab-item active">All</div>
+                    <div id="Action" class="tab-item">Action</div>
+                    <div id="Complete" class="tab-item">Complete</div>
+                  </div>
+                  <div id="task-board" class="task-board"></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
-    <div class="app-box">
-      <h1>Todo List</h1>
-      <section class="input-area">
-        <input type="text" id="task-input" />
-        <button id="add-button">+</button>
-      </section>
-
-      <section class="task-area">
-        <div class="task-tabs">
-          <div id="under-line"></div>
-          <div id="all">All</div>
-          <div id="ongoing">Not Done</div>
-          <div id="done">Done</div>
-        </div>
-        <div id="task-board">
-          <!-- <div class="task">
-            <div>집가기</div>
-            <div>
-              <button>Check</button>
-              <button>Delete</button>
-            </div>
-          </div> -->
-        </div>
-      </section>
-    </div>
     <script src="main.js"></script>
   </body>
 </html>
