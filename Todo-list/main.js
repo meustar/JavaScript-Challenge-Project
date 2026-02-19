@@ -180,3 +180,14 @@ function menuIndicator(e) {
   underLine.style.top =
     e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var calenderEl = document.getElementById("calendar");
+  if (!calenderEl) return;
+
+  var calender = new FullCalendar.Calendar(calenderEl, {
+    initialView: "dayGridMonth",
+    height: "auto",
+  });
+  calender.render();
+});
