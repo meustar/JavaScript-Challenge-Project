@@ -18,6 +18,21 @@ let tabs = document.querySelectorAll(".task-tabs div");
 let mode = "all";
 let filterList = [];
 
+function getTodayStr() {
+  let d = new Date();
+  let yyyy = d.getFullYear();
+  let mm = String(d.getMonth() + 1).padStart(2, "0");
+  let dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+let selectedDate = getTodayStr();
+
+function updateSelectedDateUI() {
+  let el = document.getElementById("selected-date-text");
+  if (el) el.textContent = selectedDate;
+}
+
 // 할일 추가 버튼
 addButton.addEventListener("click", addTask);
 taskInput.addEventListener("keydown", function (e) {
@@ -47,6 +62,7 @@ function addTask() {
     id: randomIDGenerate(),
     taskContent: taskInput.value,
     isComplete: false,
+    date: selectedDate,
   };
   taskList.push(task);
   // 입력창 초기화
@@ -182,6 +198,8 @@ function menuIndicator(e) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  updateSelectedDateUI();
+
   var calenderEl = document.getElementById("calendar");
   if (!calenderEl) return;
 
@@ -200,6 +218,12 @@ document.addEventListener("DOMContentLoaded", function () {
       left: "prev,next today",
       center: "title",
       right: "dayGridMonth,timeGridWeek",
+    },
+
+    dateClick: function (info) {
+      selectedDate = info.dateStr;
+      updateSelectedDateUI();
+      render();
     },
   });
   calender.render();

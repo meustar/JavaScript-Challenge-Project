@@ -181,3 +181,12 @@ main.container {
     min-height: 420px;
   }
 }
+
+.selected-date {
+  font-size: 14px;
+  color: #6c757d;
+}
+.selected-date span {
+  font-weight: 700;
+  color: #0d6efd;
+}
