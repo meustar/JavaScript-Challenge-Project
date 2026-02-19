@@ -25,11 +25,48 @@ main.container {
 
 /* 캘린더 자리(나중에 실제 캘린더로 교체) */
 .calendar-box {
-  min-height: 520px;
-  border: 1px dashed #ced4da;
-  border-radius: 12px;
-  background: #f8f9fa;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
   padding: 12px;
+}
+
+/* FullCalendar 기본 톤을 Bootstrap에 맞추기(변수) */
+:root {
+  --fc-border-color: #e9ecef;
+  --fc-today-bg-color: rgba(13, 110, 253, 0.1); /* Bootstrap primary 느낌 */
+  --fc-page-bg-color: transparent;
+}
+
+/* 제목 */
+.fc .fc-toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* 버튼(부드럽게) */
+.fc .fc-button {
+  border-radius: 12px;
+  padding: 0.35rem 0.6rem;
+}
+
+/* 요일 줄 */
+.fc .fc-col-header-cell-cushion {
+  padding: 10px 0;
+  font-weight: 700;
+  color: #495057;
+}
+
+/* 날짜 숫자(여백) */
+.fc .fc-daygrid-day-number {
+  padding: 10px;
+  color: #343a40;
+  text-decoration: none;
+}
+
+/* hover */
+.fc .fc-daygrid-day:hover {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 /* Todo list 영역 스크롤(모바일에서 너무 길어지지 않게) */

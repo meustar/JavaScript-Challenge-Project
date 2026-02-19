@@ -188,6 +188,19 @@ document.addEventListener("DOMContentLoaded", function () {
   var calender = new FullCalendar.Calendar(calenderEl, {
     initialView: "dayGridMonth",
     height: "auto",
+    // Bootstrap 5 테마 적용
+    themeSystem: "bootstrap5",
+
+    // 한국어
+    locale: "ko",
+    firstDay: 1, // 월요일 시작
+
+    // 툴바 정리
+    headerToolbar: {
+      left: "prev,next today",
+      center: "title",
+      right: "dayGridMonth,timeGridWeek",
+    },
   });
   calender.render();
 });
