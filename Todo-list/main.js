@@ -18,6 +18,7 @@ let tabs = document.querySelectorAll(".task-tabs div");
 let mode = "all";
 let filterList = [];
 
+// 할일 추가 버튼
 addButton.addEventListener("click", addTask);
 
 for (let i = 1; i < tabs.length; i++) {
@@ -27,6 +28,7 @@ for (let i = 1; i < tabs.length; i++) {
 }
 
 console.log(tabs);
+
 // 할일 추가
 function addTask() {
   //   console.log("clicked");
@@ -137,4 +139,22 @@ function filter(event) {
 // 랜덤 아이디 생성 함수
 function randomIDGenerate() {
   return "_" + Math.random().toString(36).substr(2, 9);
+}
+
+// menu tab =  underline
+let underLine = document.getElementById("under-line");
+console.log(underLine);
+
+let taskTabs = document.querySelectorAll(".task-tabs div");
+console.log(taskTabs);
+
+taskTabs.forEach((menu) =>
+  menu.addEventListener("click", (e) => menuIndicator(e)),
+);
+
+function menuIndicator(e) {
+  underLine.style.left = e.currentTarget.offsetLeft + "px";
+  underLine.style.width = e.currentTarget.offsetWidth + "px";
+  underLine.style.top =
+    e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
 }
