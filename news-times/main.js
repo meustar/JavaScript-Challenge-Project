@@ -52,6 +52,20 @@ const render = () => {
       const sourceName =
         news.source && news.source.name ? news.source.name : "no source";
 
+      // news.publishedAt의 시간을 moment.js를 이용해서 간지나게.
+      const publishedDate = news.publishedAt;
+      const now = moment();
+      const articleDate = moment(publishedDate); // 기사 작성 시간
+
+      const diffInHours = now.diff(articleDate, "hours"); // 현재 시간과 기사 게시 시간 차이
+
+      let displayDate;
+      if (diffInHours < 24) {
+        displayDate = articleDate.fromNow(); // 24시간 이내인 경우 "몇 시간 전"
+      } else {
+        displayDate = articleDate.format("YYYY-MM-DD HH:mm");
+      }
+
       return `<div class="row news">
           <div class="col-lg-4">
             <img
@@ -62,7 +76,7 @@ const render = () => {
           <div class="col-lg-8">
             <h2>${news.title}</h2>
             <p>${description}</p>
-            <div>${sourceName} * ${news.publishedAt}</div>
+            <div>${sourceName} * ${displayDate}</div>
           </div>
         </div>`;
     })
