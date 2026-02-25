@@ -16,3 +16,10 @@ getLatestNews();
 // for (let i = 0; i < 20; i++) {
 //   console.log("after", i);
 // }
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
