@@ -3,7 +3,7 @@ let newsList = [];
 
 const getLatestNews = async () => {
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`,
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`,
   );
   const response = await fetch(url); // url을 이용해서 fetch로 데이터를 가져온다.
   const data = await response.json();
