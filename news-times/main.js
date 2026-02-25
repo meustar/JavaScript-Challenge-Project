@@ -23,3 +23,14 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
+
+function searchButton() {
+  const inputArea = document.getElementById("input-area");
+  const currentDisplay = window.getComputedStyle(inputArea).display;
+
+  if (currentDisplay !== "none") {
+    inputArea.style.display = "none";
+  } else {
+    inputArea.style.display = "flex";
+  }
+}

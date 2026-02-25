@@ -1,3 +1,7 @@
+.topGroup {
+  display: flex;
+  justify-content: left;
+}
 .sidenav {
   height: 100%;
   width: 0;
@@ -36,7 +40,23 @@
   background-color: beige;
   border-radius: 3px;
 }
+/* 햄버거 아이콘 크기 조절 */
+.fa-bars {
+  font-size: 28px;
+  cursor: pointer;
+  margin: 5px;
+}
+/* 검색 아이콘 크기 조절 */
+#input-area i {
+  font-size: 28px;
+  margin-right: 10;
+  display: flex;
+  align-items: center;
+}
 
+.search-button {
+  border: none;
+}
 #main {
   transition: margin-left 0.5s;
   padding: 20px;
