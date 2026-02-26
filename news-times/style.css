@@ -107,3 +107,44 @@
 .news {
   border-bottom: 2px solid black;
 }
+
+.menus {
+  display: none;
+}
+
+.fa-bars {
+  display: block;
+  font-size: 28px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+@media screen and (min-width: 992px) {
+  .fa-bars {
+    display: none;
+  }
+
+  .menus {
+    display: flex;
+    margin-top: 1em;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 4px double black;
+  }
+
+  .sidenav {
+    width: 0 !important;
+  }
+}
+
+.news-img-size {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.bead-line svg {
+  max-width: 100%;
+  height: auto;
+}
