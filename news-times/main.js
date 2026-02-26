@@ -1,5 +1,9 @@
 const API_KEY = `1ca1f4d7b9d44fa8bff490ce56226976`;
 let newsList = [];
+const menus = document.querySelectorAll(".menus button");
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewByCategory(event)),
+);
 
 const getLatestNews = async () => {
   const url = new URL(
@@ -12,9 +16,19 @@ const getLatestNews = async () => {
   console.log("dddd", newsList);
 };
 
-// for (let i = 0; i < 20; i++) {
-//   console.log("after", i);
-// }
+const getNewByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  // console.log("category", category);
+  const url = new URL(
+    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("DDD", data);
+
+  newsList = data.articles;
+  render();
+};
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
@@ -87,3 +101,7 @@ const render = () => {
 };
 
 getLatestNews();
+
+// 1. 버튼들에 클릭 이벤트 주기.
+// 2. 카테고리별 뉴스 가져오기
+// 3. 그 뉴스를 보여주기 render
