@@ -1,8 +1,14 @@
 const API_KEY = `1ca1f4d7b9d44fa8bff490ce56226976`;
 let newsList = [];
+
 const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewByCategory(event)),
+);
+
+const sideMenu = document.querySelectorAll(".side-bar-list button");
+sideMenu.forEach((menu) =>
+  menu.addEventListener("click", (event) => getSideBarByCategory(event)),
 );
 
 const getLatestNews = async () => {
@@ -13,18 +19,27 @@ const getLatestNews = async () => {
   const data = await response.json();
   newsList = data.articles;
   render();
-  console.log("dddd", newsList);
 };
 
 const getNewByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  // console.log("category", category);
   const url = new URL(
     `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
   );
   const response = await fetch(url);
   const data = await response.json();
-  console.log("DDD", data);
+
+  newsList = data.articles;
+  render();
+};
+
+const getSideBarByCategory = async (event) => {
+  const category = event.target.textContent.toLowerCase();
+  const url = new URL(
+    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
+  );
+  const response = await fetch(url);
+  const data = await response.json();
 
   newsList = data.articles;
   render();
@@ -95,13 +110,8 @@ const render = () => {
         </div>`;
     })
     .join("");
-  // console.log("html", newsHTML);
 
   document.getElementById("news-board").innerHTML = newsHTML;
 };
 
 getLatestNews();
-
-// 1. 버튼들에 클릭 이벤트 주기.
-// 2. 카테고리별 뉴스 가져오기
-// 3. 그 뉴스를 보여주기 render
