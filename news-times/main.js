@@ -1,5 +1,15 @@
 const API_KEY = `1ca1f4d7b9d44fa8bff490ce56226976`;
 let newsList = [];
+let url = new URL(
+  `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`,
+);
+
+const getNews = async () => {
+  const response = await fetch(url);
+  const data = await response.json();
+  newsList = data.articles;
+  render();
+};
 
 const menus = document.querySelectorAll(".menus button");
 menus.forEach((menu) =>
@@ -12,51 +22,34 @@ sideMenu.forEach((menu) =>
 );
 
 const getLatestNews = async () => {
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`,
   );
-  const response = await fetch(url); // url을 이용해서 fetch로 데이터를 가져온다.
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const getNewByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
   );
-  const response = await fetch(url);
-  const data = await response.json();
-
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const getSideBarByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
   );
-  const response = await fetch(url);
-  const data = await response.json();
-
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const getNewsByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
-  console.log("keyword", keyword);
-  const url = new URL(
+  url = new URL(
     `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`,
   );
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("keyword data", data);
-
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 function openNav() {
@@ -103,7 +96,7 @@ const render = () => {
       const diffInHours = now.diff(articleDate, "hours"); // 현재 시간과 기사 게시 시간 차이
 
       let displayDate;
-      if (diffInHours < 24) {
+      if (diffInHours < 48) {
         displayDate = articleDate.fromNow(); // 24시간 이내인 경우 "몇 시간 전"
       } else {
         displayDate = articleDate.format("YYYY-MM-DD HH:mm");
