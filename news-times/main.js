@@ -24,7 +24,7 @@ const getLatestNews = async () => {
 const getNewByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -36,7 +36,7 @@ const getNewByCategory = async (event) => {
 const getSideBarByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`,
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -49,7 +49,7 @@ const getNewsByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
   console.log("keyword", keyword);
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`,
+    `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=us&q=${keyword}&apiKey=${API_KEY}`,
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -98,7 +98,7 @@ const render = () => {
       // news.publishedAt의 시간을 moment.js를 이용해서 간지나게.
       const publishedDate = news.publishedAt;
       const now = moment();
-      const articleDate = moment(publishedDate); // 기사 작성 시간
+      const articleDate = moment.utc(publishedDate).local(); // 기사 작성 시간
 
       const diffInHours = now.diff(articleDate, "hours"); // 현재 시간과 기사 게시 시간 차이
 
