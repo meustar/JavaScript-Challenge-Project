@@ -12,7 +12,11 @@ const groupSize = 5;
 
 const getNews = async () => {
   try {
+    url.searchParams.set("page", page); // => &page=page
+    url.searchParams.set("pageSize", pageSize);
+
     const response = await fetch(url);
+
     const data = await response.json();
     if (response.status === 200) {
       if (data.articles.length === 0) {
@@ -149,15 +153,27 @@ const errorRender = (errorMessage) => {
 
 const paginationRender = () => {
   const pageGroup = Math.ceil(page / groupSize);
-  const lastPage = pageGroup * groupSize;
-  const firstPage = lastPage - (groupSize - 1);
+  let lastPage = pageGroup * groupSize;
+  const totalPages = Math.ceil(totalResult / pageSize);
+  // 마지막 페이지그룹이 그룹사이즈보다 작다면? lastPage = totalPage
+  if (lastPage > totalPages) {
+    lastPage = totalPages;
+  }
+  let firstPage =
+    lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
   let paginationHTML = ``;
 
   for (let i = firstPage; i <= lastPage; i++) {
-    paginationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+    paginationHTML += `<li class="page-item ${i === page ? "active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
   }
   document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+const moveToPage = (pageNum) => {
+  console.log("moveToPage", pageNum);
+  page = pageNum;
+  getNews();
 };
 
 getLatestNews();
