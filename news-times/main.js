@@ -4,6 +4,12 @@ let url = new URL(
   `https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines`,
 );
 
+// pagination init
+let totalResult = 0;
+let page = 1;
+const pageSize = 10;
+const groupSize = 5;
+
 const getNews = async () => {
   try {
     const response = await fetch(url);
@@ -13,7 +19,9 @@ const getNews = async () => {
         throw new Error("No result for this search");
       }
       newsList = data.articles;
+      totalResult = data.totalResults;
       render();
+      paginationRender();
     } else {
       throw new Error(data.message);
     }
@@ -137,6 +145,19 @@ const errorRender = (errorMessage) => {
     ${errorMessage}
   </div>`;
   document.getElementById("news-board").innerHTML = errorHTML;
+};
+
+const paginationRender = () => {
+  const pageGroup = Math.ceil(page / groupSize);
+  const lastPage = pageGroup * groupSize;
+  const firstPage = lastPage - (groupSize - 1);
+
+  let paginationHTML = ``;
+
+  for (let i = firstPage; i <= lastPage; i++) {
+    paginationHTML += `<li class="page-item"><a class="page-link" href="#">${i}</a></li>`;
+  }
+  document.querySelector(".pagination").innerHTML = paginationHTML;
 };
 
 getLatestNews();
